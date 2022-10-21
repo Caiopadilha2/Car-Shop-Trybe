@@ -4,13 +4,16 @@ import CarModel from '../../../models/cars';
 import { Model } from 'mongoose';
 import { carMock, carMockWithId } from '../mocks/carMock';
 
-describe('Frame Model', () => {
+describe('car Model', () => {
   const carModel = new CarModel();
 
   before(() => {
 	sinon.stub(Model, 'create').resolves(carMockWithId);
 	sinon.stub(Model, 'findOne').resolves(carMockWithId);
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(carMockWithId);
   });
+  // Aqui eu mocko para não conectar ao mongoose. Tenho a certeza que vai me retornar o que quero.
+  // Aqui eu uso os métodos do mongoose, ex: findByIdAndUpdate, mas eu testo o meu UPDATE!.
 
   after(() => {
 	sinon.restore();
@@ -29,12 +32,26 @@ describe('Frame Model', () => {
       expect(carFound).to.be.deep.equal(carMockWithId);
   });
 
-    it('_id not found', async () => {
+    it('Wrong id', async () => {
       try {
         await carModel.readOne('123errado')
       } catch (error: any) {
 	    expect(error.message).to.be.eq('Id must have 24 hexadecimal characters');
 	}
   });
+ });
+   describe('updating a car', () => {
+    it('successfully updates', async () => {
+      const updated = await carModel.update('4edd40c86762e0fb12000003', carMock);
+      expect(updated).to.be.deep.equal(carMockWithId);
+  });
+
+//     it('Wrong id', async () => {
+//       try {
+//         await carModel.readOne('123errado')
+//       } catch (error: any) {
+// 	    expect(error.message).to.be.eq('Id must have 24 hexadecimal characters');
+// 	}
+//   });
  });
 });

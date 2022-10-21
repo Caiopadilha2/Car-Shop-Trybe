@@ -1,4 +1,4 @@
-import { Schema, Document, model as createModel } from 'mongoose';
+import { Schema, Document, model as mongooseCreateModel } from 'mongoose';
 import { ICar } from '../interfaces/ICar';
 import MongoModel from './MongoModel';
 
@@ -16,9 +16,13 @@ const carSchema = new Schema<CarDocument>({
 });
 
 class CarModel extends MongoModel<ICar> {
-  constructor(model = createModel('Car', carSchema)) {
+  constructor(model = mongooseCreateModel('Cars', carSchema)) {
     super(model);
   }
+  // Esse model, que vou passar pra quem estender dessa clase, tem todos os métodos => model.create, model.find, etc.
+  // Esse model vem do mongoose, renomeado para mongooseCreateModel.
+  // Car é o nome da coleção, o schema é a estrutura.
+  // O super passa o model pq é requerido no MongoModel (no construtor), que é de quem estou estendendo.
 }
 
 export default CarModel;
