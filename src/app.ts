@@ -1,18 +1,30 @@
 import express from 'express';
 import CarsController from './controllers/cars';
-import { carZodSchema } from './interfaces/ICar';
 import bodyValidation from './middlewares/bodyValidations';
+import { carZodSchema } from './interfaces/ICar';
 import idValidation from './middlewares/idValidations';
+import MotorcycleController from './controllers/motorcycles';
+import { motorcycleZodSchema } from './interfaces/IMotorcycle';
 
 const app = express();
 
 app.use(express.json());
 
 const car = new CarsController();
+const motorcycle = new MotorcycleController();
 
-app.post('/cars', bodyValidation(carZodSchema), car.create);
 app.get('/cars', car.read);
 app.get('/cars/:id', idValidation, car.readOne);
 app.delete('/cars/:id', idValidation, car.delete);
+app.post('/cars', bodyValidation(carZodSchema), car.create);
+
+app.post(
+  '/motorcycles',
+  bodyValidation(motorcycleZodSchema),
+  motorcycle.create,
+);
+app.get('/motorcycles', motorcycle.read);
+app.get('/motorcycles/:id', idValidation, motorcycle.readOne);
+app.delete('/motorcycles/:id', idValidation, motorcycle.delete);
 
 export default app;
