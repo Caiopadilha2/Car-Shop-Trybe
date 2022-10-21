@@ -13,6 +13,11 @@ class CarsService {
 
     return newCar;
   };
+  
+  read = async (): Promise<ICar[]> => {
+    const cars = await this.model.read();
+    return cars;
+  };
 }
 
 export default CarsService;

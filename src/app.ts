@@ -10,5 +10,6 @@ app.use(express.json());
 const car = new CarsController();
 
 app.post('/cars', bodyValidation(carZodSchema), car.create);
+app.get('/cars', car.read);
 
 export default app;
