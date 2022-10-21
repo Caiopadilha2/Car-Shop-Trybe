@@ -13,10 +13,20 @@ class CarsService {
 
     return newCar;
   };
-  
+
   read = async (): Promise<ICar[]> => {
     const cars = await this.model.read();
     return cars;
+  };
+
+  readOne = async (id: string): Promise<ICar | null> => {
+    const car = await this.model.readOne(id);
+    return car;
+  };
+
+  delete = async (id: string): Promise<ICar | null> => {
+    const deleted = await this.model.delete(id);
+    return deleted;
   };
 }
 
