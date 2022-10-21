@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import CarModel from '../../../models/cars';
 import { Model } from 'mongoose';
+import mongoose from 'mongoose';
 import { carMock, carMockWithId } from '../mocks/carMock';
 
 describe('car Model', () => {
@@ -28,15 +29,20 @@ describe('car Model', () => {
 
   describe('searching a car', () => {
     it('successfully found', async () => {
-      const carFound = await carModel.readOne('4edd40c86762e0fb12000003');
+      const stub = sinon.stub(mongoose, 'isValidObjectId').returns(true);
+      const carFound = await carModel.readOne('valid-ID');
       expect(carFound).to.be.deep.equal(carMockWithId);
+      stub.restore();
   });
 
     it('Wrong id', async () => {
+      const stub = sinon.stub(mongoose, 'isValidObjectId').returns(false);
+
       try {
-        await carModel.readOne('123errado')
+        await carModel.readOne('invalid-id')
       } catch (error: any) {
 	    expect(error.message).to.be.eq('Id must have 24 hexadecimal characters');
+        stub.restore();
 	}
   });
  });
@@ -46,9 +52,9 @@ describe('car Model', () => {
       expect(updated).to.be.deep.equal(carMockWithId);
   });
 
-//     it('Wrong id', async () => {
+//     it('Throws invalid ID ', async () => {
 //       try {
-//         await carModel.readOne('123errado')
+//         await carModel.update('4edd40c86762e0fb1200000', carMock)
 //       } catch (error: any) {
 // 	    expect(error.message).to.be.eq('Id must have 24 hexadecimal characters');
 // 	}
