@@ -4,10 +4,10 @@ import CarModel from '../models/cars';
 class CarsService {
   constructor(private model = new CarModel()) {}
 
-  create = async (obj: ICar): Promise< ICar | null> => {
+  create = async (obj: ICar): Promise< ICar> => {
     const parsed = carZodSchema.safeParse(obj);
     if (!parsed.success) {
-      return null;
+      throw parsed.error;
     }
     const newCar = await this.model.create(obj);
 

@@ -4,10 +4,10 @@ import MotorcycleModel from '../models/motorcycle';
 class MotorcycleService {
   constructor(private model = new MotorcycleModel()) {}
 
-  create = async (obj: IMotorcycle): Promise< IMotorcycle | null> => {
+  create = async (obj: IMotorcycle): Promise<IMotorcycle> => {
     const parsed = motorcycleZodSchema.safeParse(obj);
     if (!parsed.success) {
-      return null;
+      throw parsed.error;
     }
     const newMotorcycle = await this.model.create(obj);
 
