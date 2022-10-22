@@ -26,6 +26,11 @@ class MotorcycleService {
     return motorcycle;
   };
 
+  update = async (id: string, data: IMotorcycle): Promise<IMotorcycle | null> => {
+    const updated = await this.model.update(id, data);
+    return updated;
+  };
+
   delete = async (id: string): Promise<IMotorcycle | null> => {
     const deleted = await this.model.delete(id);
     return deleted;

@@ -13,19 +13,19 @@ app.use(express.json());
 const car = new CarsController();
 const motorcycle = new MotorcycleController();
 
-app.get('/cars', car.read);
-app.put('/cars/:id', idValidation, bodyValidation(carZodSchema), car.update);
-app.get('/cars/:id', idValidation, car.readOne);
-app.delete('/cars/:id', idValidation, car.delete);
-app.post('/cars', bodyValidation(carZodSchema), car.create);
+const CARS_ID_URL = '/cars/:id';
+const MOTORCYCLE_ID_URL = '/motorcycles/:id';
 
-app.post(
-  '/motorcycles',
-  bodyValidation(motorcycleZodSchema),
-  motorcycle.create,
-);
+app.get('/cars', car.read);
+app.get(CARS_ID_URL, idValidation, car.readOne);
+app.post('/cars', bodyValidation(carZodSchema), car.create);
+app.put(CARS_ID_URL, idValidation, bodyValidation(carZodSchema), car.update);
+app.delete(CARS_ID_URL, idValidation, car.delete);
+
 app.get('/motorcycles', motorcycle.read);
-app.get('/motorcycles/:id', idValidation, motorcycle.readOne);
-app.delete('/motorcycles/:id', idValidation, motorcycle.delete);
+app.get(MOTORCYCLE_ID_URL, idValidation, motorcycle.readOne);
+app.post('/motorcycles', bodyValidation(motorcycleZodSchema), motorcycle.create);
+app.put(MOTORCYCLE_ID_URL, idValidation, bodyValidation(motorcycleZodSchema), motorcycle.updated);
+app.delete(MOTORCYCLE_ID_URL, idValidation, motorcycle.delete);
 
 export default app;
