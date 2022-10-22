@@ -13,6 +13,8 @@ const carSchema = new Schema<CarDocument>({
   doorsQty: Number,
   seatsQty: Number,
   id: String,
+}, {
+  versionKey: false, 
 });
 
 class CarModel extends MongoModel<ICar> {

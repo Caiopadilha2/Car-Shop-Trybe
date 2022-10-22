@@ -24,6 +24,16 @@ class CarsService {
     return car;
   };
 
+  update = async (id: string, data: ICar): Promise<ICar | null> => {
+    const parsed = carZodSchema.safeParse(data);
+    if (!parsed.success) {
+      return null;
+    }
+    const updated = await this.model.update(id, parsed.data);
+
+    return updated;
+  };
+
   delete = async (id: string): Promise<ICar | null> => {
     const deleted = await this.model.delete(id);
     return deleted;

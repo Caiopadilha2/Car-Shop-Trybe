@@ -14,6 +14,7 @@ const car = new CarsController();
 const motorcycle = new MotorcycleController();
 
 app.get('/cars', car.read);
+app.put('/cars/:id', idValidation, bodyValidation(carZodSchema), car.update);
 app.get('/cars/:id', idValidation, car.readOne);
 app.delete('/cars/:id', idValidation, car.delete);
 app.post('/cars', bodyValidation(carZodSchema), car.create);
