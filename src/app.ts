@@ -5,12 +5,16 @@ import { carZodSchema } from './interfaces/ICar';
 import idValidation from './middlewares/idValidations';
 import MotorcycleController from './controllers/motorcycles';
 import { motorcycleZodSchema } from './interfaces/IMotorcycle';
+import CarsService from './services/cars';
+import CarModel from './models/cars';
 
 const app = express();
 
 app.use(express.json());
 
-const car = new CarsController();
+const carModel = new CarModel();
+const carService = new CarsService(carModel);
+const car = new CarsController(carService);
 const motorcycle = new MotorcycleController();
 
 const CARS_ID_URL = '/cars/:id';
