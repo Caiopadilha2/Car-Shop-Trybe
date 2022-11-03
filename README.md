@@ -25,11 +25,10 @@ Você pode acessar os termos de uso através desse [link](https://www.betrybe.co
 
 | Bibliotecas | Documentação |
 | ------ | ------ |
-| React | https://pt-br.reactjs.org/ |
-| PropTypes| https://www.npmjs.com/package/prop-types |
-| React Router| https://v5.reactrouter.com/web/guides/quick-start |
-| ESLint| https://eslint.org/ |
-| JavaScript | https://developer.mozilla.org/pt-BR/docs/Web/JavaScript |
+| Typescript | https://www.typescriptlang.org/ |
+| MongoDB| https://www.mongodb.com/ |
+| Mongoose| https://mongoosejs.com/ |
+| Chai, hest, mocha, sinon ||
 
 ## Funcionalidades
 
