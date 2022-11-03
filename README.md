@@ -28,7 +28,7 @@ Você pode acessar os termos de uso através desse [link](https://www.betrybe.co
 | Typescript | https://www.typescriptlang.org/ |
 | MongoDB| https://www.mongodb.com/ |
 | Mongoose| https://mongoosejs.com/ |
-| Chai, hest, mocha, sinon ||
+| Chai, Jest, Mocha, Sinon ||
 
 ## Funcionalidades
 
